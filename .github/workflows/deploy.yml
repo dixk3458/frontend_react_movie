@@ -1,0 +1,34 @@
+name: Deploy React to Public Server
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via Bastion
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          proxy_host: ${{ secrets.BASTION_HOST }}
+          proxy_username: ${{ secrets.USERNAME }}
+          proxy_key: ${{ secrets.KAKAO_KEY }}
+
+          # 2. 목적지 (Private Server) 설정
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KAKAO_KEY }}
+
+          script: |
+            cd cd /home/ubuntu/frontend_react
+            git pull origin main
+            npm install
+            npm run build
+            sudo mv dist /usr/share/nginx/html
+            cd /usr/share/nginx/html
+            sudo rm -rf assets/ index.html
+            cd dist
+            sudo mv assets/ index.html ..
+            sudo systemctl restart nginx
+            echo "Deployment completed successfully"

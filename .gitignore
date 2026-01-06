@@ -1,0 +1,16 @@
+# .gitignore 파일 내용
+
+# 1. 의존성 라이브러리 (필수)
+node_modules/
+
+# 2. 빌드 결과물 (필수)
+dist/
+build/
+
+# 3. 환경변수 (보안상 절대 금지)
+.env
+.env.local
+
+# 4. 맥/윈도우 시스템 파일 (찌꺼기)
+.DS_Store
+Thumbs.db
