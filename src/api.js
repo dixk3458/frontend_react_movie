@@ -24,4 +24,4 @@ export async function fetchMovies(){
   return data
 }
 
-export default apicd
+export default api
