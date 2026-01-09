@@ -31,14 +31,14 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with:
           proxy_host: ${{ secrets.BASTION_HOST }}
-          proxy_username: ${{ secrets.USERNAME }}
+          proxy_usernameㅌ: ${{ secrets.USERNAME }}
           proxy_key: ${{ secrets.KAKAO_KEY }}
           
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KAKAO_KEY }}
           
-          source: "dist/*"
+          source: "dist"
           target: "/home/ubuntu"
           # strip_components: 1 # dist 폴더 껍데기를 벗기고 내용물만 보낼 때 옵션 (필요시 사용)
 
@@ -57,9 +57,9 @@ jobs:
           key: ${{ secrets.KAKAO_KEY }}
 
           script: |
-            # 이미 scp로 최신 빌드 파일이 /home/ubuntu/kakaoreact/dist 에 와 있습니다.
+            # scp로 최신 빌드 파일이 /home/ubuntu/kakaoreact/dist 에 있음
             
-            # 1. Nginx 경로의 기존 파일 삭제 (안전을 위해 백업 권장하지만 여기선 삭제)
+            # 1. Nginx 경로의 기존 파일 삭제
             sudo rm -rf /usr/share/nginx/html/*
             
             # 2. 전송받은 빌드 파일을 Nginx 경로로 이동
